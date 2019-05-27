@@ -134,15 +134,25 @@ public class SignPanel extends JPanel implements ActionListener{
         rdbGeneroMasculino.setSelected(true);
     }
     public boolean checkAllSlots(){
+        boolean isNumber;
+        try {
+            Integer.parseInt(this.getTxtIdade());
+            isNumber = true;
+        }catch (NumberFormatException e) {
+            isNumber = false;
+        }
         if(this.getTxtNome().length()==0 || this.getTxtIdade().length() == 0){
-            JOptionPane.showMessageDialog(null, "Campo não preenchido");
-
+            JOptionPane.showMessageDialog(null, "Campo não preenchido!");
+            return false;
+        }
+        else if(isNumber == false){
+            JOptionPane.showMessageDialog(null, "Digite um número!");
             return false;
         }
         else{
-            //JOptionPane.showMessageDialog(null, "Campo  preenchido");
             return true;
         }
+        
     }
     public void cadastrarJogador(){
         if(this.checkAllSlots()){

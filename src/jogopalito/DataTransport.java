@@ -5,8 +5,8 @@ public class DataTransport {
     public GameCore core;
     public MainScreen app;
     public MenuPanel tela1;
-
     public SignPanel tela2;
+    public GamePanel tela3;
     public DataTransport(GameCore core){
         this.core = core;
     }
@@ -24,5 +24,8 @@ public class DataTransport {
     }
     public void setSignPanel(SignPanel tela2){
         this.tela2 = tela2;
+    }
+    public void setGamePanel(GamePanel tela3){
+        this.tela3 = tela3;
     }
 }

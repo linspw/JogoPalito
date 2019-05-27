@@ -20,6 +20,9 @@ public class GameCore {
     public void mostrarLista(){
         for (Jogador e: this.listaJogadores){
             System.out.println(e.getNome());
+            System.out.println(e.getIdade());
+            System.out.println(e.getGenero());
+            System.out.println(e.getPontuacao());
             System.out.println(e.getPalito());
         }
     }

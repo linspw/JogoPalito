@@ -7,6 +7,7 @@ public class Jogador {
     public String genero;
     public double pontuacao = 0;
     public int quantPalitos = 0;
+    public double aposta = 0;
     
     public Jogador(){
         
@@ -22,7 +23,7 @@ public class Jogador {
     public String getNome(){
         return this.nome;
     }
-    public void setGenero(String nome){
+    public void setGenero(String genero){
         this.genero = genero;
     }
     public String getGenero(){
@@ -43,15 +44,24 @@ public class Jogador {
     public void somaPontuacao(double valor){
         this.pontuacao+=valor;
     }
+    public void setScore(){
+        double diferenca = Math.abs(this.quantPalitos - this.aposta);
+        double valor;
+        if(diferenca >=10){
+            valor = 0;
+        }else{
+            valor = 10*(1-(diferenca/10));
+        }
+        this.somaPontuacao(valor);
+    }
     public void setPalito(int valor){
         this.quantPalitos = (valor);
     }
     public int getPalito(){
         return this.quantPalitos;
     }
-    public int apostar(int valor){
-        
-        return 0;
+    public void setAposta(double valor){
+        this.aposta = valor;
     }
     
 

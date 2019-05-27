@@ -8,7 +8,7 @@ public class MenuPanel extends JPanel implements ActionListener{
     public JButton btnIniciar, btnAddJogador, btnSair;
     public JPanel superior, centro, centro_middle, usersBars;
     public CardSwitcher switcher;
-    public GridBagConstraints gbc;
+    public GridBagConstraints gbc, gbt;
     public DataTransport data;
     Font fontTitle = new Font("Verdana", Font.BOLD, 24);
 
@@ -20,7 +20,7 @@ public class MenuPanel extends JPanel implements ActionListener{
         usersBars = new JPanel();
         centro_middle.setLayout(new BoxLayout(centro_middle, BoxLayout.PAGE_AXIS));
         centro.setLayout(new GridBagLayout());
-
+        //centro.setLayout(null);
         //Arrumando Centralização do usersBars
         tituloSuperior = new JLabel("Jogo do Pálito");
         
@@ -43,8 +43,18 @@ public class MenuPanel extends JPanel implements ActionListener{
         centro_middle.add(Box.createRigidArea(new Dimension(400,30)));
         centro_middle.setAlignmentY(Component.CENTER_ALIGNMENT);
 
+        gbc = new GridBagConstraints();
+        gbc.ipadx = 10;
+        gbc.ipady = 10;
+        //gbc.insets = new Insets(25, 25, 0, 0);
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.gridx = 1;
+        gbc.gridwidth = 3;
+
+        gbc.anchor = GridBagConstraints.CENTER;
         centro.setBackground(Color.green);
-        centro.add(centro_middle, new GridBagConstraints());
+        centro.add(centro_middle, gbc);
         
         //centro.add(usersBars);
         usersBars.setVisible(false);
@@ -62,7 +72,14 @@ public class MenuPanel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         Object botao = e.getSource();
         if (btnIniciar == botao) {
-            
+            if(this.data.core.listaJogadores.size()==0){
+                JOptionPane.showMessageDialog(null, "Nenhum jogador Adicionado! Adicione");
+            }
+            else{
+                this.switcher.trocarScreen("Tela3");
+            }
+            this.switcher.trocarScreen("Tela3");
+
         }
         else if(btnAddJogador == botao){
             this.switcher.trocarScreen("Tela2");
@@ -82,13 +99,35 @@ public class MenuPanel extends JPanel implements ActionListener{
     
     public void usersBar(){
         data.core.mostrarLista();
-        tituloUsersBars = new JLabel("Jogadores:");
+        if(usersBars.isVisible()){
+            centro.remove(usersBars);
+            usersBars = new JPanel();
+            tituloUsersBars = new JLabel("Jogadores:");
+
+        }else{
+            tituloUsersBars = new JLabel("Jogadores:");
+        }
+        usersBars.setLayout(new BoxLayout(usersBars, BoxLayout.Y_AXIS));
+        gbt = new GridBagConstraints();
+        gbt.ipadx = 20;
+        gbt.ipady = 10;
+        gbc.insets = new Insets(40, 40, 10, 10);
+        gbt.weightx = 0;
+        gbt.weighty = 0;
+        gbt.anchor = GridBagConstraints.FIRST_LINE_END;
         usersBars.add(tituloUsersBars);
         usersBars.setVisible(true);
         //usersBars.setLayout(null);
-        usersBars.setBounds(0,0, 300, 400);
-        centro.add(usersBars, gbc);
+        //usersBars.setBounds(0,0, 300, 400);
+        centro.add(usersBars, gbt);
+        this.gerarIconGamer();
         
 
+    }
+    public void gerarIconGamer(){
+        for(Jogador e: data.core.listaJogadores){
+            JLabel player = new JLabel(e.nome+" "+e.genero);
+            usersBars.add(player);
+        }
     }
 }

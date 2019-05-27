@@ -15,12 +15,16 @@ public class JogoPalito {
         DataTransport data = new DataTransport(core, app);
         MenuPanel tela1 = new MenuPanel();
         SignPanel tela2 = new SignPanel();
+        GamePanel tela3 = new GamePanel();
         data.setMenuPanel(tela1);
         data.setSignPanel(tela2);
+        data.setGamePanel(tela3);
         app.addTela(tela1, "Tela1");
         app.addTela(tela2, "Tela2");
-        tela1.inicializar(app.switcher,data);
+        app.addTela(tela3, "Tela3");
+        tela1.inicializar(app.switcher, data);
         tela2.inicializar(app.switcher, data);
+        tela3.inicializar(app.switcher, data);
         //app.pulaTela();
         //app.setTela("Home");
         //app.setTela("ola");
