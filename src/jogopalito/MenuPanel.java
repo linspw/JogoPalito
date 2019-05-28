@@ -76,9 +76,11 @@ public class MenuPanel extends JPanel implements ActionListener{
                 JOptionPane.showMessageDialog(null, "Nenhum jogador Adicionado! Adicione");
             }
             else{
+                this.data.core.sortTotalPalitos();
+                this.data.core.distribuirPalitos();
+                this.data.core.mostrarLista();
                 this.switcher.trocarScreen("Tela3");
             }
-            this.switcher.trocarScreen("Tela3");
 
         }
         else if(btnAddJogador == botao){
@@ -117,8 +119,7 @@ public class MenuPanel extends JPanel implements ActionListener{
         gbt.anchor = GridBagConstraints.FIRST_LINE_END;
         usersBars.add(tituloUsersBars);
         usersBars.setVisible(true);
-        //usersBars.setLayout(null);
-        //usersBars.setBounds(0,0, 300, 400);
+
         centro.add(usersBars, gbt);
         this.gerarIconGamer();
         

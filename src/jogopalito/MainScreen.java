@@ -23,6 +23,7 @@ public class MainScreen extends JFrame {
         setLocationRelativeTo(null);
         //setExtendedState(JFrame.MAXIMIZED_BOTH); 
         //setUndecorated(true);
+        setTitle("Jogo dos Pálitos");
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
