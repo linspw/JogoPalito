@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GamePanel extends JPanel implements ActionListener{
-    public JLabel tituloSuperior, tituloUsersBars;
+    public JLabel tituloSuperior, tituloUsersBars, frase1, frase2;
     public JButton btnIniciar, btnAddJogador, btnSair, btnProximo1, btnProximo2;
     public JPanel superior, centro, centro_middle, usersBars, TelaStart, TelaAposta, TelaPontuacao;
     public CardSwitcher switcher;
@@ -20,17 +20,15 @@ public class GamePanel extends JPanel implements ActionListener{
         centro_middle = new JPanel();
         
         centro.setLayout(new GridBagLayout());
-        //centro.setLayout(null);
-        //Arrumando Centralização do usersBars
+
         tituloSuperior = new JLabel("Jogo do Pálito");
         
         
         superior.add(tituloSuperior);
         superior.add(Box.createRigidArea(new Dimension(0, 80)));
         
-        centro_middle.add(Box.createRigidArea(new Dimension(400,30)));
-        centro_middle.add(Box.createRigidArea(new Dimension(400,30)));
         centro_middle.setAlignmentY(Component.CENTER_ALIGNMENT);
+        
         lyt = new CardLayout();
         centro_middle.setLayout(lyt);
         
@@ -46,25 +44,13 @@ public class GamePanel extends JPanel implements ActionListener{
         centro.setBackground(Color.green);
         centro.add(centro_middle, gbc);
         
-        //this.etapaStart();
-        //this.etapaAposta();
-        TelaStart = new JPanel();
-        JLabel frase = new JLabel("Prepare!!");
-        btnProximo1 = new JButton("Jaimo");
-        TelaStart.add(btnProximo1);
-        TelaStart.add(frase);
-        TelaStart.setVisible(false);
-
+        this.etapaStart();
+        this.etapaAposta();
         
-        TelaAposta = new JPanel();
-        btnProximo2 = new JButton("Proximo");
-        TelaAposta.add(btnProximo2);
-        TelaAposta.add(frase);
-        TelaAposta.setVisible(true);
 
         centro_middle.add(TelaStart, "TelaStart");
         centro_middle.add(TelaAposta, "TelaAposta");
-        lyt.show(centro_middle, "TelaAposta");
+        lyt.show(centro_middle, "TelaStart");
 
 
         //centro.add(usersBars);
@@ -78,14 +64,40 @@ public class GamePanel extends JPanel implements ActionListener{
         setVisible(true);
     }
     
-    
+    public void trocarTela(String nome){
+        lyt.show(centro_middle, nome);
+    }
+    public void etapaStart(){
+        TelaStart = new JPanel();
+        frase1 = new JLabel("Fase1!!");
+        btnProximo1 = new JButton("Começar");
+        TelaStart.add(btnProximo1);
+        TelaStart.add(frase1);
+        TelaStart.setVisible(false);
+        btnProximo1.addActionListener(this);
+
+    }
+    public void etapaAposta(){
+        TelaAposta = new JPanel();
+        frase2 = new JLabel("Fase2!!");
+        btnProximo2 = new JButton("Proximo");
+        TelaAposta.add(btnProximo2);
+        TelaAposta.add(frase2);
+        TelaAposta.setVisible(false);
+        btnProximo2.addActionListener(this);
+    }
+    @Override
     public void actionPerformed(ActionEvent e) {
         Object botao = e.getSource();
-        if(botao == btnProximo1 || botao == btnProximo2){
-            JOptionPane.showMessageDialog(null, "Apertou");
+        if(botao == this.btnProximo1){
+//            JOptionPane.showMessageDialog(null, "Apertou");
             lyt.next(centro_middle);
+        } 
+        else if(botao == this.btnProximo2){
+//            JOptionPane.showMessageDialog(null, "Apertou");
+            lyt.next(centro_middle);
+
         }
-        
     }
     public void inicializar(CardSwitcher switcher, DataTransport data){
         this.switcher = switcher;
@@ -93,24 +105,5 @@ public class GamePanel extends JPanel implements ActionListener{
         
     }
     
-    public void trocarTela(String nome){
-        lyt.show(centro_middle, nome);
-    }
-    public void etapaStart(){
-        TelaStart = new JPanel();
-        JLabel frase = new JLabel("Prepare!!");
-        btnProximo1 = new JButton("Jaimo");
-        TelaStart.add(btnProximo1);
-        TelaStart.add(frase);
-        TelaStart.setVisible(true);
-    }
-    public void etapaAposta(){
-        TelaAposta = new JPanel();
-        JLabel frase = new JLabel("Apostando!!");
-        btnProximo2 = new JButton("Proximo");
-        TelaAposta.add(btnProximo2);
-        TelaAposta.add(frase);
-        System.out.println("Ativour");
-        TelaAposta.setVisible(true);
-    }
+    
 }
