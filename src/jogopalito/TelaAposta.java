@@ -12,7 +12,6 @@ public class TelaAposta extends JPanel {
     JLabel frase, lblNumPalitos;
     DataTransport data;
     String valor;
-    int i=0;
 
     
     public TelaAposta(CardSwitcher card, DataTransport data){
@@ -56,11 +55,10 @@ public class TelaAposta extends JPanel {
             public void componentShown ( ComponentEvent e )
             {
                 System.out.println ( "Show TelaAposta Panel" );
+                data.core.sortearListaJogadores();
                 String palito = "Palito(s): ";
                 lblNumPalitos.setText(palito+String.valueOf(data.core.getTotalPalitos()));
                 
-                i = i + 1;
-                //areaAposta.add(new Label(palito+String.valueOf(i)));
                 apostas(data.core.listaJogadores);
             }
             public void componentHidden ( ComponentEvent e )
@@ -73,8 +71,7 @@ public class TelaAposta extends JPanel {
     }
     public void apostas(ArrayList<Jogador> listaJogadores){
         for(Jogador e: listaJogadores){
-            //areaAposta.removeAll();
-            //areaAposta.revalidate();
+
             JPanel slotAposta = new JPanel();
             JLabel jogadorNome = new JLabel(e.getNome());
             JTextField txtAposta = new JTextField();
@@ -85,8 +82,6 @@ public class TelaAposta extends JPanel {
             slotAposta.add(jogadorNome);
             slotAposta.add(txtAposta);
             slotAposta.add(enviarAposta);
-            //Thread a = new Thread();
-            //a.start();
             
             enviarAposta.addActionListener(new ActionListener() { 
                 public void actionPerformed(ActionEvent a) { 
@@ -96,10 +91,9 @@ public class TelaAposta extends JPanel {
                 } 
             });
             areaAposta.add(slotAposta);
-            //JOptionPane.showMessageDialog(null, e.getNome());
         }
         JPanel slotAposta = new JPanel();
-        JButton enviarAposta = new JButton("Visualizar Score:!");
+        JButton enviarAposta = new JButton("Visualizar Score!");
         enviarAposta.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
                 card.layout.next(card.container);

@@ -13,7 +13,7 @@ public class TelaStart extends JPanel{
     public TelaStart(CardSwitcher card, DataTransport data){
         this.card = card;
         JPanel areaAposta = new JPanel();
-        JLabel frase = new JLabel("Fase1!!");
+        JLabel frase = new JLabel("Prepare-se");
         btnProximo = new JButton("Começar");
         areaAposta.add(btnProximo);
         areaAposta.add(frase);
@@ -23,6 +23,24 @@ public class TelaStart extends JPanel{
             public void actionPerformed(ActionEvent e) { 
                 card.layout.next(card.container);
             } 
+        });
+        
+                        
+        addComponentListener ( new ComponentAdapter ()
+        {
+            public void componentShown ( ComponentEvent ae )
+            {
+                System.out.println ( "Show TelaStart Panel" );
+                data.core.sortearListaJogadores();
+                data.core.sortTotalPalitos();
+                data.core.distribuirPalitos();
+                data.core.mostrarLista();
+                
+            }
+            public void componentHidden ( ComponentEvent ae )
+            {
+                System.out.println ( "Hidden TelaStart Panel" );
+            }
         });
     }
 }

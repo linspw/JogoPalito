@@ -27,12 +27,6 @@ public class JogoPalito {
         tela3.inicializar(app.switcher, data);
         
         
-        //app.pulaTela();
-        //app.setTela("Home");
-        //app.setTela("ola");
-    //    app.pulaTela();
-
-        //app.addTela(menu);
         /*
         while(true){
             Scanner sc1Name = new Scanner(System.in);

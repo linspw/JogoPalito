@@ -76,9 +76,7 @@ public class MenuPanel extends JPanel implements ActionListener{
                 JOptionPane.showMessageDialog(null, "Nenhum jogador Adicionado! Adicione");
             }
             else{
-                this.data.core.sortTotalPalitos();
-                this.data.core.distribuirPalitos();
-                this.data.core.mostrarLista();
+
                 this.switcher.trocarScreen("Tela3");
             }
 
