@@ -1,5 +1,6 @@
 package jogopalito;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 
@@ -8,8 +9,13 @@ public class GameCore {
     public int quantTotalPalitos = 0; 
     public int quantJogadores = 0;
     
+    
+    public void sortearListaJogadores(){
+        Collections.shuffle(listaJogadores);
+    }
     public void addJogador(Jogador jogador){
         listaJogadores.add(jogador);
+        this.quantJogadores = this.listaJogadores.size();
     }
     public int getJogador(String nome){
         return listaJogadores.indexOf(nome);
@@ -20,10 +26,15 @@ public class GameCore {
     public void mostrarLista(){
         for (Jogador e: this.listaJogadores){
             System.out.println(e.getNome());
-            System.out.println(e.getIdade());
-            System.out.println(e.getGenero());
-            System.out.println(e.getPontuacao());
+            //System.out.println(e.getIdade());
+            //System.out.println(e.getGenero());
+            //System.out.printf("\nPontuacao: %.2f",e.getPontuacao());
             System.out.println(e.getPalito());
+        }
+    }
+    public void mostrarPontuacao(){
+        for (Jogador e: this.listaJogadores){
+            System.out.printf("\nJogador: %s --- Pontuacao: %.2f --- Aposta: %.0f --- Valor Real: %d",e.getNome(), e.getPontuacao(), e.aposta, e.getPalito());
         }
     }
     public int getTotalPalitos(){
@@ -39,6 +50,9 @@ public class GameCore {
         this.setTotalPalitos(numero);
     }
     public int sortNum(int limite){
+        if(limite == 0){
+            return 0;
+        }
         Random rand = new Random();
         int numero = rand.nextInt(limite);
         numero +=1;
@@ -49,9 +63,9 @@ public class GameCore {
         int i=1;
         for (Jogador e: this.listaJogadores){
             int numero = sortNum(resto);
-            System.out.printf("Numero sorteado: %d\n", numero);
+            //System.out.printf("Numero sorteado: %d\n", numero);
             resto = resto - numero;
-            System.out.printf("Valor sobrado: %d\n",resto);
+            //System.out.printf("Valor sobrado: %d\n",resto);
             
             if(this.listaJogadores.size() == i){
                 e.setPalito(resto>0 ? numero+resto: numero);
@@ -61,7 +75,11 @@ public class GameCore {
             }
 
             i++;
-            
+        }
+    }
+    public void distribuirScore(){
+        for (Jogador e: this.listaJogadores){
+            e.setScore();
         }
     }
 }

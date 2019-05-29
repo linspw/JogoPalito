@@ -6,8 +6,11 @@ import java.awt.event.*;
 public class GamePanel extends JPanel implements ActionListener{
     public JLabel tituloSuperior, tituloUsersBars;
     public JButton btnIniciar, btnAddJogador, btnSair, btnProximo1, btnProximo2;
-    public JPanel superior, centro, centro_middle, usersBars, TelaStart, TelaAposta, TelaPontuacao;
-    public CardSwitcher switcher;
+    public JPanel superior, centro, centro_middle, usersBars;
+    public TelaStart telaStart;
+    public TelaAposta telaAposta;
+    public TelaScore telaScore;
+    public CardSwitcher switcher, switcherTela;
     public GridBagConstraints gbc, gbt;
     public DataTransport data;
     public CardLayout lyt;
@@ -31,6 +34,7 @@ public class GamePanel extends JPanel implements ActionListener{
         
         lyt = new CardLayout();
         centro_middle.setLayout(lyt);
+        switcherTela = new CardSwitcher(centro_middle, lyt);
         
         gbc = new GridBagConstraints();
         gbc.ipadx = 10;
@@ -44,20 +48,7 @@ public class GamePanel extends JPanel implements ActionListener{
         centro.setBackground(Color.green);
         centro.add(centro_middle, gbc);
         
-        addComponentListener ( new ComponentAdapter ()
-        {
-            public void componentShown ( ComponentEvent e )
-            {
-                System.out.println ( "Show Game Panel" );
-                comecarJogo();
-            }
-
-            public void componentHidden ( ComponentEvent e )
-            {
-                System.out.println ( "Hidden Game Panel" );
-            }
-        } );
-
+        
 
 
         tituloSuperior.setSize(100, 100);
@@ -66,76 +57,10 @@ public class GamePanel extends JPanel implements ActionListener{
         add(superior, BorderLayout.NORTH);
         add(centro, BorderLayout.CENTER);
         setSize(800, 600);
-        //setVisible(true);
     }
     
     public void trocarTela(String nome){
         lyt.show(centro_middle, nome);
-    }
-    public void comecarJogo(){
-        TelaStart = new JPanel();
-        TelaAposta = new JPanel();
-        TelaPontuacao = new JPanel();
-        centro_middle.add(TelaStart, "TelaStart");
-        centro_middle.add(TelaAposta, "TelaAposta");
-        centro_middle.add(TelaPontuacao, "TelaPontuacao");
-        
-        TelaStart.addComponentListener ( new ComponentAdapter ()
-        {
-            public void componentShown ( ComponentEvent e )
-            {
-                System.out.println ( "Tela Start shown" );
-                etapaStart();
-            }
-
-            public void componentHidden ( ComponentEvent e )
-            {
-                System.out.println ( "Tela Start hidden" );
-            }
-        } );
-        lyt.show(centro_middle, "TelaStart");
-
-
-
-        
-    }
-    public void etapaStart(){
-        JPanel areaAposta = new JPanel();
-        JLabel frase1 = new JLabel("Fase1!!");
-        btnProximo1 = new JButton("Começar");
-        areaAposta.add(btnProximo1);
-        areaAposta.add(frase1);
-        TelaStart.add(areaAposta);
-        TelaStart.setVisible(false);
-        btnProximo1.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-                lyt.next(centro_middle);
-            } 
-        });
-    }
-    public void etapaAposta(){
-        JLabel frase2 = new JLabel("Fase2!!");
-        btnProximo2 = new JButton("Proximo");
-        TelaAposta.add(btnProximo2);
-        TelaAposta.add(frase2);
-        TelaAposta.setVisible(false);
-        btnProximo2.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-                lyt.next(centro_middle);
-            } 
-        });
-    }
-    public void etapaPontuacao(){
-        JLabel frase = new JLabel("Fase3!!");
-        JButton btnProximo = new JButton("Proximo");
-        TelaPontuacao.add(btnProximo);
-        TelaPontuacao.add(frase);
-        TelaPontuacao.setVisible(false);
-        btnProximo.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-                lyt.next(centro_middle);
-            } 
-        });
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -144,6 +69,27 @@ public class GamePanel extends JPanel implements ActionListener{
     public void inicializar(CardSwitcher switcher, DataTransport data){
         this.switcher = switcher;
         this.data = data;
+        addComponentListener ( new ComponentAdapter ()
+        {
+            public void componentShown ( ComponentEvent e )
+            {
+                System.out.println ( "Show Game Panel" );
+                telaStart = new TelaStart(switcherTela, data);
+                telaAposta = new TelaAposta(switcherTela, data);
+                telaScore = new TelaScore(switcherTela, data, switcher);
+                centro_middle.add(telaStart, "TelaStart");
+                centro_middle.add(telaAposta, "TelaAposta");
+                centro_middle.add(telaScore, "TelaScore");
+                lyt.show(centro_middle, "TelaStart");
+
+            }
+
+            public void componentHidden ( ComponentEvent e )
+            {
+                System.out.println ( "Hidden Game Panel" );
+            }
+        } );
+
     }
     
 }
