@@ -31,6 +31,7 @@ public class TelaStart extends JPanel{
             public void componentShown ( ComponentEvent ae )
             {
                 System.out.println ( "Show TelaStart Panel" );
+                data.core.resetAllAposta();
                 data.core.sortearListaJogadores();
                 data.core.sortTotalPalitos();
                 data.core.distribuirPalitos();

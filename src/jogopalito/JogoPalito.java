@@ -48,6 +48,7 @@ public class JogoPalito {
         tela1.inicializar(app.switcher, data);
         tela2.inicializar(app.switcher, data);
         tela3.inicializar(app.switcher, data);
+        tela4.inicializar(app.switcher, data);
         
         
     }

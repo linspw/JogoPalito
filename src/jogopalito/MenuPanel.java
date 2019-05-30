@@ -2,6 +2,7 @@ package jogopalito;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.table.*;
 
 public class MenuPanel extends JPanel implements ActionListener{
     public JLabel tituloSuperior;
@@ -10,7 +11,12 @@ public class MenuPanel extends JPanel implements ActionListener{
     public CardSwitcher switcher;
     public GridBagConstraints gbc, gbt;
     public DataTransport data;
-    Font fontTitle = new Font("Verdana", Font.BOLD, 24);
+    private Font fontTitle = new Font("Verdana", Font.BOLD, 24);
+    private Font f = new Font("Arial", Font.BOLD, 18);
+
+    private String[] colunasTabela = new String[]{ "Nome", "Score" };
+    private JTable table = new JTable();
+
 
     public MenuPanel(){
         setLayout(new BorderLayout());
@@ -84,7 +90,6 @@ public class MenuPanel extends JPanel implements ActionListener{
             public void componentShown ( ComponentEvent ae )
             {
                 System.out.println ( "Show MenuPanel Panel" );
-                //usersBar();
                 listarJogadores();
             }
             public void componentHidden ( ComponentEvent ae )
@@ -105,7 +110,6 @@ public class MenuPanel extends JPanel implements ActionListener{
             else{
                 this.switcher.trocarScreen("Tela3");
             }
-
         }
         else if(btnAddJogador == botao){
             this.switcher.trocarScreen("Tela2");
@@ -131,14 +135,26 @@ public class MenuPanel extends JPanel implements ActionListener{
             usersBars.removeAll();
             usersBars.revalidate();
             usersBars.setVisible(true);
-            JLabel tituloUsersBars = new JLabel("Jogadores || Pontuacao");
-            usersBars.add(tituloUsersBars);
+            DefaultTableModel modeloTabela = new DefaultTableModel(null,colunasTabela);
+            modeloTabela.setColumnIdentifiers(colunasTabela);
+
             for(Jogador e: data.core.listaJogadores){
-                JLabel player = new JLabel(e.getNome()+" "+e.getPontuacao());
-                usersBars.add(player);
+                modeloTabela.addRow(new String[] {e.getNome(), String.valueOf(e.getPontuacao())}); 
+
             }
-            JButton gravarJogadores = new JButton("Gravar BD");
-            usersBars.add(gravarJogadores);     
+            table = new JTable(modeloTabela);
+            JTableHeader header = table.getTableHeader();
+            header.setFont(f);
+            table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            table.setFillsViewportHeight(true);
+            usersBars.add(header, BorderLayout.NORTH);
+            usersBars.add(table, BorderLayout.CENTER);
+            
+            JButton btnGravarJogadores = new JButton("Gravar BD");
+            //JPanel centraliza = new JPanel();
+            btnGravarJogadores.setAlignmentX(Component.CENTER_ALIGNMENT);
+            btnGravarJogadores.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+            usersBars.add(btnGravarJogadores, BorderLayout.SOUTH);     
         }
         else{
             usersBars.removeAll();

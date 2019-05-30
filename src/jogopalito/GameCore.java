@@ -82,4 +82,9 @@ public class GameCore {
             e.setScore();
         }
     }
+    public void resetAllAposta(){
+        for (Jogador e: this.listaJogadores){
+            e.setAposta(0);
+        }
+    }
 }
