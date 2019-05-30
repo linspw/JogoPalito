@@ -32,7 +32,6 @@ public class RankingPanel extends JPanel implements ActionListener{
         gbc = new GridBagConstraints();
         gbc.ipadx = 10;
         gbc.ipady = 10;
-        //gbc.insets = new Insets(25, 25, 0, 0);
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 1;
@@ -99,16 +98,25 @@ public class RankingPanel extends JPanel implements ActionListener{
             table = new JTable(modeloTabela);
             JTableHeader header = table.getTableHeader();
             header.setFont(f);
+            
             table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
             table.setFillsViewportHeight(true);
+            //JPanel panelApoio = new JPanel();
+            //panelApoio.setLayout(new BorderLayout());
+            //panelApoio.add(table, BorderLayout.CENTER);
+            JScrollPane scroll = new JScrollPane(table);
             centro_middle.add(header, BorderLayout.NORTH);
-            centro_middle.add(table, BorderLayout.CENTER);
-            centro_middle.add(Box.createRigidArea(new Dimension(400,70)), BorderLayout.CENTER);
+            //centro_middle.add(panelApoio, BorderLayout.CENTER);
+            centro_middle.add(scroll, BorderLayout.CENTER );
+
+            centro_middle.add(Box.createRigidArea(new Dimension(400,10)), BorderLayout.SOUTH);
+            
             JPanel centralizar = new JPanel();
             centralizar.setLayout(new BoxLayout(centralizar, BoxLayout.PAGE_AXIS));
             centralizar.add(btnVoltar);
             btnVoltar.setAlignmentX(Component.CENTER_ALIGNMENT);
-            
+            btnVoltar.setAlignmentY(Component.CENTER_ALIGNMENT);
+
             centro_middle.add(centralizar, BorderLayout.SOUTH);
             centro_middle.setPreferredSize(new Dimension(400, 200));
             btnVoltar.addActionListener(this);

@@ -63,17 +63,13 @@ public class GameCore {
         int i=1;
         for (Jogador e: this.listaJogadores){
             int numero = sortNum(resto);
-            //System.out.printf("Numero sorteado: %d\n", numero);
             resto = resto - numero;
-            //System.out.printf("Valor sobrado: %d\n",resto);
-            
             if(this.listaJogadores.size() == i){
                 e.setPalito(resto>0 ? numero+resto: numero);
             }
             else{
                 e.setPalito(numero>0?numero:0);            
             }
-
             i++;
         }
     }

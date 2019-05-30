@@ -105,13 +105,11 @@ public class SignPanel extends JPanel implements ActionListener{
             //JOptionPane.showMessageDialog(null, "Cadastrando!!"+getTxtNome());
 
             this.cadastrarJogador();
-            this.switcher.trocarScreen("Tela1");
         }
         else if (botao == btnCancelar){
             this.switcher.trocarScreen("Tela1");
         }
-        //tela.setTela("Tela1");
-        //JOptionPane.showMessageDialog(null, "InfoBox: ");
+
     }
     
     public String getTxtNome(){
@@ -162,7 +160,8 @@ public class SignPanel extends JPanel implements ActionListener{
             data.core.addJogador(player);
             JOptionPane.showMessageDialog(null, "Jogador Cadastrado com Sucesso!");
             this.cleanAllSlots();
-            //data.tela1.usersBar();
+            this.switcher.trocarScreen("Tela1");
+
         }
         
     }

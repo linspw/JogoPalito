@@ -8,7 +8,6 @@ public class Database {
     String bd_caminho = "jdbc:mysql://localhost/bd_jogopalito";
     Connection con = null;
     public Database() {
-        //Class.forName("jdbc:mysql://localhost/NomeBancodeDados");
         create();
     }
     public void create(){
@@ -22,6 +21,7 @@ public class Database {
     public void delete(){
         try{
             this.con.close();
+            System.out.println("Conexao MS-ACCESS Fechada");
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -29,7 +29,7 @@ public class Database {
     public ResultSet lerDados(){
         try{
             Statement st=con.createStatement();
-            ResultSet rs=st.executeQuery("SELECT * FROM tb_jogador");
+            ResultSet rs=st.executeQuery("SELECT * FROM tb_jogador ORDER BY pontuacao desc");
             return rs;
         }catch(SQLException e){
             System.out.println(e.getMessage());

@@ -11,8 +11,10 @@ public class MenuPanel extends JPanel implements ActionListener{
     public CardSwitcher switcher;
     public GridBagConstraints gbc, gbt;
     public DataTransport data;
+    public Database db;
     private Font fontTitle = new Font("Verdana", Font.BOLD, 24);
     private Font f = new Font("Arial", Font.BOLD, 18);
+    public JButton btnGravarJogadores;
 
     private String[] colunasTabela = new String[]{ "Nome", "Score" };
     private JTable table = new JTable();
@@ -38,6 +40,7 @@ public class MenuPanel extends JPanel implements ActionListener{
         btnRanking.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnSair = new JButton("Sair");
         btnSair.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnGravarJogadores = new JButton("Registrar Score");
         
         superior.add(tituloSuperior);
         superior.add(Box.createRigidArea(new Dimension(0, 80)));
@@ -115,11 +118,15 @@ public class MenuPanel extends JPanel implements ActionListener{
             this.switcher.trocarScreen("Tela2");
         }
         else if(btnRanking == botao){
-            System.out.println("OLA");
             this.switcher.trocarScreen("Tela4");
         }
         else if(btnSair == botao){
             this.data.app.dispose();
+        }
+        else if(btnGravarJogadores == botao){
+            db = new Database();
+            db.inserirJogadores(data.core.listaJogadores);
+            db.delete();
         }
     }
     public void inicializar(CardSwitcher switcher, DataTransport data){
@@ -129,6 +136,7 @@ public class MenuPanel extends JPanel implements ActionListener{
         btnAddJogador.addActionListener(this);
         btnRanking.addActionListener(this);
         btnSair.addActionListener(this);
+        btnGravarJogadores.addActionListener(this);
     }
     public void listarJogadores(){
         if(data.core.listaJogadores.size()>0){
@@ -149,9 +157,7 @@ public class MenuPanel extends JPanel implements ActionListener{
             table.setFillsViewportHeight(true);
             usersBars.add(header, BorderLayout.NORTH);
             usersBars.add(table, BorderLayout.CENTER);
-            
-            JButton btnGravarJogadores = new JButton("Gravar BD");
-            //JPanel centraliza = new JPanel();
+
             btnGravarJogadores.setAlignmentX(Component.CENTER_ALIGNMENT);
             btnGravarJogadores.setAlignmentY(Component.BOTTOM_ALIGNMENT);
             usersBars.add(btnGravarJogadores, BorderLayout.SOUTH);     
