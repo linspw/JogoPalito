@@ -105,6 +105,7 @@ public class SignPanel extends JPanel implements ActionListener{
             //JOptionPane.showMessageDialog(null, "Cadastrando!!"+getTxtNome());
 
             this.cadastrarJogador();
+            this.switcher.trocarScreen("Tela1");
         }
         else if (botao == btnCancelar){
             this.switcher.trocarScreen("Tela1");
@@ -161,8 +162,7 @@ public class SignPanel extends JPanel implements ActionListener{
             data.core.addJogador(player);
             JOptionPane.showMessageDialog(null, "Jogador Cadastrado com Sucesso!");
             this.cleanAllSlots();
-            this.switcher.trocarScreen("Tela1");
-            data.tela1.usersBar();
+            //data.tela1.usersBar();
         }
         
     }

@@ -4,8 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class MenuPanel extends JPanel implements ActionListener{
-    public JLabel tituloSuperior, tituloUsersBars;
-    public JButton btnIniciar, btnAddJogador, btnSair;
+    public JLabel tituloSuperior;
+    public JButton btnIniciar, btnAddJogador, btnRanking, btnSair;
     public JPanel superior, centro, centro_middle, usersBars;
     public CardSwitcher switcher;
     public GridBagConstraints gbc, gbt;
@@ -28,6 +28,8 @@ public class MenuPanel extends JPanel implements ActionListener{
         btnIniciar.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnAddJogador = new JButton("Adicionar Jogador");
         btnAddJogador.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnRanking = new JButton("Ranking");
+        btnRanking.setAlignmentX(Component.CENTER_ALIGNMENT);
         btnSair = new JButton("Sair");
         btnSair.setAlignmentX(Component.CENTER_ALIGNMENT);
         
@@ -38,6 +40,8 @@ public class MenuPanel extends JPanel implements ActionListener{
         centro_middle.add(btnIniciar);
         centro_middle.add(Box.createRigidArea(new Dimension(400,30)));
         centro_middle.add(btnAddJogador);
+        centro_middle.add(Box.createRigidArea(new Dimension(400,30)));
+        centro_middle.add(btnRanking);
         centro_middle.add(Box.createRigidArea(new Dimension(400,30)));
         centro_middle.add(btnSair);
         centro_middle.add(Box.createRigidArea(new Dimension(400,30)));
@@ -56,8 +60,17 @@ public class MenuPanel extends JPanel implements ActionListener{
         centro.setBackground(Color.green);
         centro.add(centro_middle, gbc);
         
-        //centro.add(usersBars);
+        usersBars.setLayout(new BoxLayout(usersBars, BoxLayout.Y_AXIS));
         usersBars.setVisible(false);
+        
+        gbt = new GridBagConstraints();
+        gbt.ipadx = 20;
+        gbt.ipady = 10;
+        gbc.insets = new Insets(40, 40, 10, 10);
+        gbt.weightx = 0;
+        gbt.weighty = 0;
+        gbt.anchor = GridBagConstraints.FIRST_LINE_END;
+        centro.add(usersBars, gbt);
 
         tituloSuperior.setSize(100, 100);
         tituloSuperior.setFont(fontTitle);
@@ -66,6 +79,20 @@ public class MenuPanel extends JPanel implements ActionListener{
         add(centro, BorderLayout.CENTER);
         setSize(800, 600);
         setVisible(true);
+        addComponentListener ( new ComponentAdapter ()
+        {
+            public void componentShown ( ComponentEvent ae )
+            {
+                System.out.println ( "Show MenuPanel Panel" );
+                //usersBar();
+                listarJogadores();
+            }
+            public void componentHidden ( ComponentEvent ae )
+            {
+                System.out.println ( "Hidden MenuPanel Panel" );
+            }
+        });
+        
     }
     
     
@@ -76,7 +103,6 @@ public class MenuPanel extends JPanel implements ActionListener{
                 JOptionPane.showMessageDialog(null, "Nenhum jogador Adicionado! Adicione");
             }
             else{
-
                 this.switcher.trocarScreen("Tela3");
             }
 
@@ -84,49 +110,40 @@ public class MenuPanel extends JPanel implements ActionListener{
         else if(btnAddJogador == botao){
             this.switcher.trocarScreen("Tela2");
         }
+        else if(btnRanking == botao){
+            System.out.println("OLA");
+            this.switcher.trocarScreen("Tela4");
+        }
         else if(btnSair == botao){
             this.data.app.dispose();
         }
-        //JOptionPane.showMessageDialog(null, "Menu Panel");
     }
     public void inicializar(CardSwitcher switcher, DataTransport data){
         this.switcher = switcher;
         this.data = data;
         btnIniciar.addActionListener(this);
         btnAddJogador.addActionListener(this);
+        btnRanking.addActionListener(this);
         btnSair.addActionListener(this);
     }
-    
-    public void usersBar(){
-        data.core.mostrarLista();
-        if(usersBars.isVisible()){
-            centro.remove(usersBars);
-            usersBars = new JPanel();
-            tituloUsersBars = new JLabel("Jogadores:");
-
-        }else{
-            tituloUsersBars = new JLabel("Jogadores:");
+    public void listarJogadores(){
+        if(data.core.listaJogadores.size()>0){
+            usersBars.removeAll();
+            usersBars.revalidate();
+            usersBars.setVisible(true);
+            JLabel tituloUsersBars = new JLabel("Jogadores || Pontuacao");
+            usersBars.add(tituloUsersBars);
+            for(Jogador e: data.core.listaJogadores){
+                JLabel player = new JLabel(e.getNome()+" "+e.getPontuacao());
+                usersBars.add(player);
+            }
+            JButton gravarJogadores = new JButton("Gravar BD");
+            usersBars.add(gravarJogadores);     
         }
-        usersBars.setLayout(new BoxLayout(usersBars, BoxLayout.Y_AXIS));
-        gbt = new GridBagConstraints();
-        gbt.ipadx = 20;
-        gbt.ipady = 10;
-        gbc.insets = new Insets(40, 40, 10, 10);
-        gbt.weightx = 0;
-        gbt.weighty = 0;
-        gbt.anchor = GridBagConstraints.FIRST_LINE_END;
-        usersBars.add(tituloUsersBars);
-        usersBars.setVisible(true);
-
-        centro.add(usersBars, gbt);
-        this.gerarIconGamer();
-        
-
-    }
-    public void gerarIconGamer(){
-        for(Jogador e: data.core.listaJogadores){
-            JLabel player = new JLabel(e.nome+" "+e.genero);
-            usersBars.add(player);
+        else{
+            usersBars.removeAll();
+            usersBars.revalidate();
+            usersBars.setVisible(false);
         }
     }
 }

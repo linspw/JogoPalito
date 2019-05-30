@@ -7,6 +7,8 @@ public class DataTransport {
     public MenuPanel tela1;
     public SignPanel tela2;
     public GamePanel tela3;
+    public RankingPanel tela4;
+    
     public DataTransport(GameCore core){
         this.core = core;
     }
@@ -27,5 +29,8 @@ public class DataTransport {
     }
     public void setGamePanel(GamePanel tela3){
         this.tela3 = tela3;
+    }
+    public void setRankingPanel(RankingPanel tela4){
+        this.tela4 = tela4;
     }
 }

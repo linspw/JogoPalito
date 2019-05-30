@@ -63,6 +63,9 @@ public class Jogador {
     public void setAposta(double valor){
         this.aposta = valor;
     }
+    public double getAposta(){
+        return this.aposta;
+    }
     
 
 }

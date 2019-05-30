@@ -21,26 +21,20 @@ public class TelaAposta extends JPanel {
         areaTools = new JPanel();
         valor = String.valueOf(data.core.quantJogadores);
         
-        //frase = new JLabel("Fase 2");
         lblNumPalitos = new JLabel();
-        //btnProximo = new JButton("Começar");
         
         
         areaAposta.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //frase.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblNumPalitos.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         areaTools.add(lblNumPalitos);
-        //areaTools.add(frase);
         areaTools.add(areaAposta);
 
-        //areaTools.add(btnProximo);
         areaTools.setLayout(new BoxLayout(areaTools, BoxLayout.Y_AXIS));
         areaTools.setBackground(Color.CYAN);
         
         lyt = new CardLayout();
         areaAposta.setBackground(Color.red);
-        //areaAposta.setLayout(new BoxLayout(areaAposta, BoxLayout.Y_AXIS));
         areaAposta.setLayout(lyt);
         
         add(areaTools);

@@ -18,8 +18,8 @@ public class TelaScore extends JPanel{
         areaAposta = new JPanel();
         areaTools = new JPanel();
         
-        btnProximo = new JButton("Novo Jogo");
-        btnMenu = new JButton("Menu");
+        btnProximo = new JButton("Nova Rodada");
+        btnMenu = new JButton("Sair Para menu");
         
         JLabel frase = new JLabel("Jogador");
         JLabel frase2 = new JLabel("Score");
@@ -27,13 +27,16 @@ public class TelaScore extends JPanel{
         JLabel frase4 = new JLabel("Valor Apostado");
 
         JPanel linha = new JPanel();
-        areaTools.add(btnProximo);
-        areaTools.add(btnMenu);        
+        JPanel linha0 = new JPanel();
+
+        linha0.add(btnProximo);
+        linha0.add(btnMenu);        
         linha.add(frase);
         linha.add(frase2);
         linha.add(frase3);
         linha.add(frase4);
-
+        
+        areaTools.add(linha0);
         areaTools.add(linha);
         
         areaTools.add(areaAposta);
