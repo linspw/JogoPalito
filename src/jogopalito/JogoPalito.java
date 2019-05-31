@@ -9,24 +9,7 @@ public class JogoPalito {
 
 
     public static void main(String[] args) {
-        
-        
-        /*
-        Database db = new Database();
-        //db.inserirJogador(new Jogador("Jesse", "M", 22));
-        db.lerDados();
-        ResultSet rs = db.lerDados();
-        try{
-            while(rs.next()){
-                String w_nome=rs.getString("nome");
-                Double w_pontuacao=rs.getDouble("pontuacao");
-                System.out.println("Nome: " + w_nome.trim() ); 
-                System.out.println("Pontuacao:"+w_pontuacao.toString());
-            }
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }*/
-        
+               
         GameCore core = new GameCore();
         
         MainScreen app = new MainScreen();

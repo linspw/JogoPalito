@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements ActionListener{
         
         centro.setLayout(new GridBagLayout());
 
-        tituloSuperior = new JLabel("Jogo do Pálito");
+        tituloSuperior = new JLabel("Jogo do Palito");
         
         
         superior.add(tituloSuperior);

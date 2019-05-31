@@ -101,9 +101,6 @@ public class RankingPanel extends JPanel implements ActionListener{
             
             table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
             table.setFillsViewportHeight(true);
-            //JPanel panelApoio = new JPanel();
-            //panelApoio.setLayout(new BorderLayout());
-            //panelApoio.add(table, BorderLayout.CENTER);
             JScrollPane scroll = new JScrollPane(table);
             centro_middle.add(header, BorderLayout.NORTH);
             //centro_middle.add(panelApoio, BorderLayout.CENTER);

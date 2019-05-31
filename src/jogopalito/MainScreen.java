@@ -9,20 +9,16 @@ public class MainScreen extends JFrame {
     public CardLayout card;
     public CardSwitcher switcher;
     public DataTransport data;
-    //public MenuPanel mnpn = new MenuPanel();
     public MainScreen(){
         JANELA = getContentPane();
         JANELA.setBackground(Color.WHITE);
         card = new CardLayout();
         switcher = new CardSwitcher(JANELA, card);
         JANELA.setLayout(switcher.layout);        
-        //JANELA.setSize(800, 600);
 
         pack();
         setSize(800, 600);
         setLocationRelativeTo(null);
-        //setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        //setUndecorated(true);
         setTitle("Jogo dos Pálitos");
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

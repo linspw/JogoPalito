@@ -28,9 +28,8 @@ public class MenuPanel extends JPanel implements ActionListener{
         usersBars = new JPanel();
         centro_middle.setLayout(new BoxLayout(centro_middle, BoxLayout.PAGE_AXIS));
         centro.setLayout(new GridBagLayout());
-        //centro.setLayout(null);
-        //Arrumando Centralização do usersBars
-        tituloSuperior = new JLabel("Jogo do Pálito");
+
+        tituloSuperior = new JLabel("Jogo do Palito");
         
         btnIniciar = new JButton("Iniciar jogo");
         btnIniciar.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -59,7 +58,6 @@ public class MenuPanel extends JPanel implements ActionListener{
         gbc = new GridBagConstraints();
         gbc.ipadx = 10;
         gbc.ipady = 10;
-        //gbc.insets = new Insets(25, 25, 0, 0);
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.gridx = 1;
